@@ -1,1 +1,15 @@
 @import "tailwindcss";
+
+@keyframes pulseGlow {
+    0% {
+        text-shadow: 0 0 8px #66fcf0, 0 0 12px #45a29e;
+    }
+
+    50% {
+        text-shadow: 0 0 18px #66fcf0, 0 0 24px #45a29e;
+    }
+
+    100% {
+        text-shadow: 0 0 8px #66fcf0, 0 0 12px #45a29e;
+    }
+}
