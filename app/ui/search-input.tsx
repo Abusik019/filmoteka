@@ -6,7 +6,7 @@ export default function SearchInput() {
             <input 
                 type="text"
                 className='w-[calc(100%-60px)] border-none outline-none appearance-none'
-                placeholder='Название фильма'
+                placeholder='Звездные войны: Империя наносит обратный удар'
             />
             <button className='cursor-pointer'>
                 <Image src="/icons/search.svg" width={24} height={24} alt='search' className='transition-all hover:drop-shadow-[0_0_6px_#66FCF0]'/>

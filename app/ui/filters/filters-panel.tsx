@@ -2,6 +2,7 @@
 
 import { TypeFilter, TypeFilterState } from "@app/types";
 import RatingFilter from "@app/ui/filters/rating-filter";
+import GenreFilter from "@app/ui/filters/genre-filter";
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,6 +13,12 @@ const filters: TypeFilter[] = [
         label: "Рейтинг",
         name: "rating",
         content: <RatingFilter />,
+    },
+    {
+        id: 2,
+        label: "Жанры",
+        name: "genres",
+        content: <GenreFilter />,
     },
 ];
 
