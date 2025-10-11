@@ -12,3 +12,7 @@
 .animate-pulse-glow {
     animation: pulse-glow 2s ease-in-out infinite;
 }
+
+.ant-spin-dot-item {
+    background-color: #66FCF0 !important;
+}

@@ -3,6 +3,10 @@
 import { TypeFilter, TypeFilterState } from "@app/types";
 import RatingFilter from "@app/ui/filters/rating-filter";
 import GenreFilter from "@app/ui/filters/genre-filter";
+import CountriesFilter from "@app/ui/filters/countries-filter";
+import YearRangeFilter from "@app/ui/filters/year-range-filter";
+import ResetFiltersButton from "@app/ui/filters/reset-filters-button";
+import SearchByFiltersButton from "@app/ui/filters/search-by-filters-button";
 import Image from "next/image";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -12,13 +16,25 @@ const filters: TypeFilter[] = [
         id: 1,
         label: "Рейтинг",
         name: "rating",
-        content: <RatingFilter />,
+        content: <RatingFilter />
     },
     {
         id: 2,
         label: "Жанры",
         name: "genres",
-        content: <GenreFilter />,
+        content: <GenreFilter />
+    },
+    {
+        id: 3,
+        label: "Страны",
+        name: "countries",
+        content: <CountriesFilter />
+    },
+    {
+        id: 4,
+        label: "Дата выпуска фильмов",
+        name: "date",
+        content: <YearRangeFilter />
     },
 ];
 
@@ -26,6 +42,7 @@ export default function FiltersPanel() {
     const [openFilters, setOpenFilters] = useState<TypeFilterState[]>([
         { name: "rating", isOpen: false },
         { name: "genres", isOpen: false },
+        { name: "countries", isOpen: false },
         { name: "date", isOpen: false },
     ]);
 
@@ -66,7 +83,7 @@ export default function FiltersPanel() {
                             <AnimatePresence>
                                 {isOpen && (
                                     <motion.div
-                                        className="mt-5 w-fit"
+                                        className="mt-5 w-full"
                                         initial={{ opacity: 0, y: -10 }}
                                         animate={{ opacity: 1, y: 0 }}
                                         exit={{ opacity: 0, y: -10 }}
@@ -83,6 +100,10 @@ export default function FiltersPanel() {
                     );
                 })}
             </ul>
+            <div className="w-full flex flex-col items-center gap-2 mt-20">
+                <ResetFiltersButton />
+                <SearchByFiltersButton />
+            </div>
         </section>
     );
 }

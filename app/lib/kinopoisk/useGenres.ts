@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { IGenreListResponse } from "./types";
+import { IGenreListResponse } from "@app/lib/kinopoisk/types";
 
 export function useGenres() {
     return useQuery<IGenreListResponse, Error>({

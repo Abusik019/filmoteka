@@ -4,3 +4,10 @@ export interface IGenre {
 }
 
 export type IGenreListResponse = IGenre[];
+
+export interface ICountry {
+    name: string;
+    slug: string;
+}
+
+export type ICountryListResponse = ICountry[];

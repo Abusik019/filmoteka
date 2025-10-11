@@ -8,7 +8,7 @@ import FiltersPanel from '@app/ui/filters/filters-panel'
 export default function Page() {
     return (
         <div className='max-h-fit bg-[#1f2833] px-20 py-10 box-border min-h-screen flex items-start gap-20'>
-            <aside className='w-60 flex flex-col items-start gap-20'>
+            <aside className='w-70 flex flex-col items-start gap-20'>
                 <Link href="/">
                     <Image
                         src="/images/logo.png"
@@ -19,7 +19,7 @@ export default function Page() {
                 </Link>
                 <FiltersPanel />
             </aside>
-            <main className='w-[calc(100%-320px)]'>
+            <main className='w-[calc(100%-360px)]'>
                 <SearchInput />
                 <MovieGrid />
             </main>
