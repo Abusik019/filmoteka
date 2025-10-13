@@ -1,7 +1,7 @@
 const BASE_URL = process.env.API_BASE!;
 const API_KEY = process.env.API_KEY!;
 
-export async function tmdbFetcher<T>(
+export async function kinopoiskFetcher<T>(
     path: string,
     params?: Record<string, string | number>
 ): Promise<T> {

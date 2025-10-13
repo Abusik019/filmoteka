@@ -5,12 +5,12 @@ import { useSearchParams, useRouter } from "next/navigation";
 import { Checkbox } from "antd";
 import Loader from "@app/ui/loader";
 
-export default function CountriesFilter() {
+export default function CountryFilter() {
     const { data: countries, isLoading, error, isSuccess } = useCountries();
     const router = useRouter();
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams.toString());
-    const currentCountries = params.get("countries") ? params.get("countries")!.split(",") : [];
+    const currentCountries = params.get("country") ? params.get("country")!.split(",") : [];
 
     const handleUpdateCountries = (country: string, isChecked: boolean) => {
         if (isChecked) {
@@ -25,9 +25,9 @@ export default function CountriesFilter() {
         }
 
         if (currentCountries.length > 0) {
-            params.set("countries", currentCountries.join(","));
+            params.set("country", currentCountries.join(","));
         } else {
-            params.delete("countries");
+            params.delete("country");
         }
 
         router.replace(`?${params.toString()}`, { scroll: false });

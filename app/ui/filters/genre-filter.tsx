@@ -10,7 +10,7 @@ export default function GenreFilter() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const params = new URLSearchParams(searchParams.toString());
-    const currentGenres = params.get("genres") ? params.get("genres")!.split(",") : [];
+    const currentGenres = params.get("genre") ? params.get("genre")!.split(",") : [];
 
     const handleUpdateGenres = (genre: string, isChecked: boolean) => {
         if (isChecked) {
@@ -25,9 +25,9 @@ export default function GenreFilter() {
         }
 
         if (currentGenres.length > 0) {
-            params.set("genres", currentGenres.join(","));
+            params.set("genre", currentGenres.join(","));
         } else {
-            params.delete("genres");
+            params.delete("genre");
         }
 
         router.replace(`?${params.toString()}`, { scroll: false });

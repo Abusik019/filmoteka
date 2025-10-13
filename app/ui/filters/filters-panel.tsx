@@ -3,7 +3,7 @@
 import { TypeFilter, TypeFilterState } from "@app/types";
 import RatingFilter from "@app/ui/filters/rating-filter";
 import GenreFilter from "@app/ui/filters/genre-filter";
-import CountriesFilter from "@app/ui/filters/countries-filter";
+import CountryFilter from "@app/ui/filters/country-filter";
 import YearRangeFilter from "@app/ui/filters/year-range-filter";
 import ResetFiltersButton from "@app/ui/filters/reset-filters-button";
 import SearchByFiltersButton from "@app/ui/filters/search-by-filters-button";
@@ -28,7 +28,7 @@ const filters: TypeFilter[] = [
         id: 3,
         label: "Страны",
         name: "countries",
-        content: <CountriesFilter />
+        content: <CountryFilter />
     },
     {
         id: 4,

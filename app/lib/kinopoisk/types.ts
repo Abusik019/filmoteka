@@ -11,3 +11,11 @@ export interface ICountry {
 }
 
 export type ICountryListResponse = ICountry[];
+
+export interface IMovieFilters {
+    query?: string;       
+    genre?: string;       
+    country?: string;      
+    year?: string;        
+    rating?: string;      
+}
