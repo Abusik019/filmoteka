@@ -1,36 +1,25 @@
 "use client";
 
 import { useCountries } from "@app/lib/kinopoisk/useCountries";
-import { useSearchParams, useRouter } from "next/navigation"; 
 import { Checkbox } from "antd";
 import Loader from "@app/ui/loader";
+import { useState } from "react";
 
 export default function CountryFilter() {
-    const { data: countries, isLoading, error, isSuccess } = useCountries();
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams.toString());
-    const currentCountries = params.get("country") ? params.get("country")!.split(",") : [];
+    const { data, isLoading, error, isSuccess } = useCountries();
+    const currentCountries = localStorage.getItem("country") ? localStorage.getItem("country")!.split(",") : [];
+    const [countries, setCountries] = useState<string[]>(currentCountries);
 
     const handleUpdateCountries = (country: string, isChecked: boolean) => {
-        if (isChecked) {
-            if (!currentCountries.includes(country)) {
-                currentCountries.push(country);
-            }
-        } else {
-            const index = currentCountries.indexOf(country);
-            if (index > -1) {
-                currentCountries.splice(index, 1);
-            }
-        }
+        const updatedCountries = isChecked ? [...countries, country] : countries.filter((c) => c !== country);
 
-        if (currentCountries.length > 0) {
-            params.set("country", currentCountries.join(","));
-        } else {
-            params.delete("country");
-        }
+        setCountries(updatedCountries);
 
-        router.replace(`?${params.toString()}`, { scroll: false });
+        if (updatedCountries.length > 0) {
+            localStorage.setItem("country", updatedCountries.join(","));
+        } else {
+            localStorage.removeItem("country");
+        }
     };
 
     if (isLoading) return <Loader />;
@@ -39,7 +28,7 @@ export default function CountryFilter() {
     return (
         <ul className="flex flex-col items-start gap-2">
             {isSuccess &&
-                countries.map((c) => (
+                data.map((c) => (
                     <li key={c.name}>
                         <Checkbox
                             style={{
@@ -48,7 +37,7 @@ export default function CountryFilter() {
                                 fontSize: "16px",
                                 gap: "10px",
                             }}
-                            checked={currentCountries.includes(c.name)}
+                            checked={countries.includes(c.name)}
                             onChange={(e) => handleUpdateCountries(c.name, e.target.checked)}
                         >
                             {c.name}

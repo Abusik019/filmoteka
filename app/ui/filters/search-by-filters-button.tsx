@@ -1,22 +1,29 @@
 'use client';
 
-import { IMovieFilters } from "@app/lib/kinopoisk/types";
-import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 export default function SearchByFiltersButton() {
     const router = useRouter();
-    const searchParams = useSearchParams();
-    const [filters, setFilters] = useState<IMovieFilters>({});
 
-    useEffect(() => {
-        const params = Object.fromEntries(searchParams.entries());
-        setFilters(params);
-    }, [searchParams]);
+    const handleSearch = () => {
+        const params = new URLSearchParams();
+
+        const genre = localStorage.getItem("genre");
+        const country = localStorage.getItem("country");
+        const year = localStorage.getItem("year");
+        const rating = localStorage.getItem("rating");
+
+        if (genre) params.set("genre", genre);
+        if (country) params.set("country", country);
+        if (year) params.set("year", year);
+        if (rating) params.set("rating", rating);
+
+        router.replace(`?${params.toString()}`, { scroll: false });
+    };
 
     return (
-        <button 
-            onClick={() => {router.replace(window.location.pathname, { scroll: false })}}
+        <button
+            onClick={handleSearch}
             className="text-black bg-[#66FCF0] border border-black w-full py-2 box-border text-center font-medium rounded-lg cursor-pointer"
         >
             Поиск по фильтрам

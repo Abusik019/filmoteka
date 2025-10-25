@@ -1,25 +1,27 @@
 import { DatePicker } from "antd";
-import { useSearchParams, useRouter } from "next/navigation";
 import dayjs from "dayjs";
+import { useState } from "react";
 
 const { RangePicker } = DatePicker;
 
 export default function YearRangeFilter() {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams.toString());
-    const currentYear = params.get("year");
-    const [startYear, endYear] = currentYear ? currentYear.split("-").map(Number) : [null, null];
+    const currentYear = localStorage.getItem("year");
+    const [start, end] = currentYear ? currentYear.split("-").map(Number) : [null, null];
+    const [yearRange, setYearRange] = useState<{ startYear: number | null, endYear: number | null}>({ startYear: start, endYear: end });
 
     const handleSetDate = (value: [dayjs.Dayjs | null, dayjs.Dayjs | null] | null) => {
         if (!value || !value[0] || !value[1]) {
-            params.delete("year");
-        } else {
-            const [start, end] = value;
-            params.set("year", `${start.year()}-${end.year()}`);
+            localStorage.removeItem("year");
+            setYearRange({ startYear: null, endYear: null });
+            return;
         }
 
-        router.replace(`?${params.toString()}`, { scroll: false });
+        const [start, end] = value;
+        const startYear = start.year();
+        const endYear = end.year();
+
+        localStorage.setItem("year", `${startYear}-${endYear}`);
+        setYearRange({ startYear, endYear });
     };
 
     return (
@@ -28,8 +30,8 @@ export default function YearRangeFilter() {
                 picker="year"
                 onChange={handleSetDate}
                 value={
-                    startYear && endYear
-                        ? [dayjs().year(startYear), dayjs().year(endYear)]
+                    yearRange.startYear && yearRange.endYear
+                        ? [dayjs().year(yearRange.startYear), dayjs().year(yearRange.endYear)]
                         : null
                 }
             />

@@ -1,31 +1,27 @@
 'use client';
 
 import { Rate } from 'antd';
-import { useSearchParams, useRouter } from 'next/navigation';
 import { toDefaultRatingFormat, toSearchRatingFormat } from '@app/lib/utils/format';
 import { useEffect, useState } from 'react';
 
 const RatingFilter: React.FC = () => {
-    const router = useRouter();
-    const searchParams = useSearchParams();
-    const params = new URLSearchParams(searchParams.toString());
-    const currentRating = params.get("rating") ?? "";
+    const currentRating = localStorage.getItem("rating") ?? "";
     const [rating, setRating] = useState<number>(toDefaultRatingFormat(currentRating));
 
-    useEffect(() => {
-        setRating(toDefaultRatingFormat(currentRating));
-    }, [currentRating]);
 
     const handleChangeRating = (value: number) => {
         if (value === 0) {
-            params.delete("rating");
+            localStorage.removeItem("rating");
         } else {
             const { min, max } = toSearchRatingFormat(value);
-            params.set("rating", `${min}-${max}`);
+            localStorage.setItem("rating", `${min}-${max}`);
         }
+        setRating(value);
+    };
 
-        router.replace(`?${params.toString()}`, { scroll: false });
-    }       
+    useEffect(() => {
+        setRating(toDefaultRatingFormat(currentRating));
+    }, []);
     
     return (
         <div className='bg-[#66FCF0] px-2 py-1 box-border rounded-3xl w-fit'>

@@ -22,7 +22,7 @@ export default function Home() {
                     alt="logo"
                 />
                 <h1 className={`${oswald.className} text-5xl`}>Filmoteka</h1>
-                <Link href="/movies" className="bg-[#66FCF0] px-4 py-2 box-border text-black font-medium">Go to search</Link>
+                <Link href="/movies" className="bg-[#66FCF0] px-4 py-2 box-border text-black font-medium">К поиску</Link>
             </nav>
             <div className="max-w-[600px] flex flex-col items-center gap-20 my-0 mx-auto mt-30 relative">
                 <h2
@@ -30,7 +30,7 @@ export default function Home() {
                     onMouseEnter={() => setHovered(true)}
                     onMouseLeave={() => setHovered(false)}
                 >
-                    HELLO
+                    ПРИВЕТ
                 </h2>
                 <div
                     className={`absolute top-[110px] left-1/2 -translate-x-1/2 transition-all duration-1000 ease-out ${
@@ -52,7 +52,7 @@ export default function Home() {
                         hovered ? "translate-y-[300px]" : "translate-y-0"
                     }`}
                 >
-                    On our website, you can browse a wide selection of films. Use our filters to find the one that best suits your needs and enjoy watching. If you see several films that catch your eye, you can add them to your favorites.
+                    На нашем сайте вы найдете широкий выбор фильмов. Воспользуйтесь нашими фильтрами, чтобы найти тот, который вам больше всего подходит, и наслаждайтесь просмотром. Если несколько фильмов вам понравятся, вы можете добавить их в избранное.
                 </p>
             </div>
         </div>
