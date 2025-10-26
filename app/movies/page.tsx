@@ -19,7 +19,7 @@ export default function Page() {
                 </Link>
                 <FiltersPanel />
             </aside>
-            <main className='w-[calc(100%-360px)]'>
+            <main className='w-[calc(100%-360px)] flex flex-col items-center gap-10'>
                 <SearchInput />
                 <MovieGrid />
             </main>

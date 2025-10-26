@@ -8,15 +8,26 @@ export default function SearchByFiltersButton() {
     const handleSearch = () => {
         const params = new URLSearchParams();
 
-        const genre = localStorage.getItem("genre");
-        const country = localStorage.getItem("country");
+        const genres = localStorage.getItem("genre");
+        const countries = localStorage.getItem("country"); 
         const year = localStorage.getItem("year");
         const rating = localStorage.getItem("rating");
 
-        if (genre) params.set("genre", genre);
-        if (country) params.set("country", country);
+        if (genres) {
+            genres.split(",").forEach(g => params.append("genre", g));
+        }
+
+        if (countries) {
+            try {
+                const parsedCountries = JSON.parse(countries) as string[];
+                parsedCountries.forEach(c => params.append("country", c));
+            } catch {
+                params.append("country", countries);
+            }
+        }
+
         if (year) params.set("year", year);
-        if (rating) params.set("rating", rating);
+        if (rating) params.set("rating", rating); 
 
         router.replace(`?${params.toString()}`, { scroll: false });
     };
