@@ -16,11 +16,11 @@ export default function MovieGrid() {
 
     const { data, isLoading, isError } = useMovies(filters);
 
-    if (isLoading) return <Loader />;
+    if (isLoading) return <Loader height="60vh" />;
     if (isError)
         return <p className="text-red-400">Ошибка при загрузке фильмов</p>;
 
-    const movies = data?.data?.docs || [];
+    const movies = data?.docs || [];
 
     if (!movies.length) return <p>Нет фильмов по выбранным фильтрам</p>;
 

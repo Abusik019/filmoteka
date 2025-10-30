@@ -24,7 +24,8 @@ export function useMovies(filters: IMovieFilters) {
             });
             if (!res.ok) throw new Error("Failed to fetch movies");
 
-            return res.json();
+            const json = await res.json();
+            return json.data as MovieDocsResponseDtoV1;
         },
         staleTime: 1000 * 60 * 60,
     });
