@@ -3,7 +3,11 @@
 import { useRouter, useSearchParams, usePathname } from "next/navigation";
 import { useCallback } from "react";
 
-export default function ResetFiltersButton() {
+interface ResetFiltersButtonProps {
+    onClose?: () => void; 
+}
+
+export default function ResetFiltersButton({ onClose }: ResetFiltersButtonProps) {
     const router = useRouter();
     const searchParams = useSearchParams();
     const pathname = usePathname(); 
@@ -20,8 +24,11 @@ export default function ResetFiltersButton() {
         router.push(`${pathname}${newUrl}`, { scroll: false });
 
         ['rating', 'year', 'genre', 'genres', 'country', 'countries'].forEach((filter) => {
-            localStorage.removeItem(filter);
+            sessionStorage.removeItem(filter);
         });
+
+        if (onClose) onClose();
+
     }, [router, searchParams, pathname]);
 
     return (

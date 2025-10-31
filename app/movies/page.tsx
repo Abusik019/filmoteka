@@ -4,6 +4,7 @@ import MovieGrid from '@app/ui/movies/movie-grid'
 import Image from 'next/image'
 import Link from 'next/link'
 import FiltersPanel from '@app/ui/filters/filters-panel'
+import PaginationBar from '@app/ui/pagination/pagination-bar'
 
 export default function Page() {
     return (
@@ -22,6 +23,7 @@ export default function Page() {
             <main className='w-[calc(100%-360px)] flex flex-col items-center gap-10'>
                 <SearchInput />
                 <MovieGrid />
+                <PaginationBar />
             </main>
         </div>
     )

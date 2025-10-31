@@ -8,10 +8,10 @@ export default function SearchByFiltersButton() {
     const handleSearch = () => {
         const params = new URLSearchParams();
 
-        const genres = localStorage.getItem("genre");
-        const countries = localStorage.getItem("country"); 
-        const year = localStorage.getItem("year");
-        const rating = localStorage.getItem("rating");
+        const genres = sessionStorage.getItem("genre");
+        const countries = sessionStorage.getItem("country"); 
+        const year = sessionStorage.getItem("year");
+        const rating = sessionStorage.getItem("rating");
 
         if (genres) {
             genres.split(",").forEach(g => params.append("genre", g));

@@ -10,6 +10,7 @@ export function useMovies(filters: IMovieFilters) {
         queryFn: async () => {
             const params = new URLSearchParams();
 
+            if(filters.page) params.append("page", filters.page);
             if (filters.genres?.length) {
                 filters.genres.forEach((g) => params.append("genre", g));
             }
@@ -17,7 +18,7 @@ export function useMovies(filters: IMovieFilters) {
                 filters.countries.forEach((c) => params.append("country", c));
             }
             if (filters.year) params.append("year", filters.year);
-            if (filters.rating) params.set("rating.imdb", filters.rating);
+            if (filters.rating) params.append("rating.imdb", filters.rating);
 
             const res = await fetch(`/api/movies?${params.toString()}`, {
                 cache: "no-store",

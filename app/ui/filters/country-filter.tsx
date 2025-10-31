@@ -3,12 +3,17 @@
 import { useCountries } from "@app/lib/kinopoisk/useCountries";
 import { Checkbox } from "antd";
 import Loader from "@app/ui/loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function CountryFilter() {
+    const searchParams = useSearchParams();
     const { data, isLoading, error, isSuccess } = useCountries();
-    const currentCountries = localStorage.getItem("country") ? localStorage.getItem("country")!.split(",") : [];
-    const [countries, setCountries] = useState<string[]>(currentCountries);
+
+    const [countries, setCountries] = useState<string[]>(() => {
+        const saved = sessionStorage.getItem("country");
+        return saved ? saved.split(",") : [];
+    });
 
     const handleUpdateCountries = (country: string, isChecked: boolean) => {
         const updatedCountries = isChecked ? [...countries, country] : countries.filter((c) => c !== country);
@@ -16,11 +21,16 @@ export default function CountryFilter() {
         setCountries(updatedCountries);
 
         if (updatedCountries.length > 0) {
-            localStorage.setItem("country", updatedCountries.join(","));
+            sessionStorage.setItem("country", updatedCountries.join(","));
         } else {
-            localStorage.removeItem("country");
+            sessionStorage.removeItem("country");
         }
     };
+
+    useEffect(() => {
+        const saved = sessionStorage.getItem("country");
+        setCountries(saved ? saved.split(",") : []);
+    }, [searchParams]);
 
     if (isLoading) return <Loader />;
     if (error) return <p>Ошибка при загрузке стран</p>;

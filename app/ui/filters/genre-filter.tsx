@@ -3,12 +3,18 @@
 import { useGenres } from "@app/lib/kinopoisk/useGenres";
 import { Checkbox } from "antd";
 import Loader from "@app/ui/loader";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 export default function GenreFilter() {
+    const searchParams = useSearchParams();
+
     const { data, isLoading, error, isSuccess } = useGenres();
-    const currentGenres = localStorage.getItem("genre") ? localStorage.getItem("genre")!.split(",") : [];
-    const [genres, setGenres] = useState<string[]>(currentGenres);
+    
+    const [genres, setGenres] = useState<string[]>(() => {
+        const saved = sessionStorage.getItem("genre");
+        return saved ? saved.split(",") : [];
+    });
 
     const handleUpdateGenres = (genre: string, isChecked: boolean) => {
         const updatedGenres = isChecked
@@ -18,11 +24,16 @@ export default function GenreFilter() {
         setGenres(updatedGenres);
 
         if (updatedGenres.length > 0) {
-            localStorage.setItem("genre", updatedGenres.join(","));
+            sessionStorage.setItem("genre", updatedGenres.join(","));
         } else {
-            localStorage.removeItem("genre");
+            sessionStorage.removeItem("genre");
         }
     };
+
+    useEffect(() => {
+        const saved = sessionStorage.getItem("genre");
+        setGenres(saved ? saved.split(",") : []);
+    }, [searchParams]);
 
     if (isLoading) return <Loader />;
     if (error) return <p>Ошибка при загрузке жанров</p>;

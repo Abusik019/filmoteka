@@ -101,7 +101,12 @@ export default function FiltersPanel() {
                 })}
             </ul>
             <div className="w-full flex flex-col items-center gap-2 mt-20">
-                <ResetFiltersButton />
+                <ResetFiltersButton onClose={() => setOpenFilters([
+                    { name: "rating", isOpen: false },
+                    { name: "genres", isOpen: false },
+                    { name: "countries", isOpen: false },
+                    { name: "date", isOpen: false },
+                ])} />
                 <SearchByFiltersButton />
             </div>
         </section>
