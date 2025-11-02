@@ -2,21 +2,30 @@
 
 import { useSearchParams } from "next/navigation";
 import { useMovies } from "@app/lib/kinopoisk/useMovies";
+import { useMoviesByQuery } from "@app/lib/kinopoisk/useMoviesByQuery"; 
 import MovieCardSkeleton from "@app/ui/skeletons/movie-card-skeleton";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function MovieGrid() {
     const searchParams = useSearchParams();
+    const query = searchParams.get("query") || "";
+    const page = searchParams.get("page") || "1";
 
     const filters = {
         genres: searchParams.getAll("genre"),
         countries: searchParams.getAll("country"),
         year: searchParams.get("year") || "",
         rating: searchParams.get("rating") || "",
-        page: searchParams.get("page")|| "1",
+        page: page,
     };
 
-    const { data, isLoading, isError } = useMovies(filters);
+    const { data: moviesData, isLoading: moviesLoading, isError: moviesError } = useMovies(filters);
+    const { data: searchData, isLoading: searchLoading, isError: searchError } = useMoviesByQuery(query, page);
+
+    const hasSearchQuery = !!query;
+    const data = hasSearchQuery ? searchData : moviesData;
+    const isLoading = hasSearchQuery ? searchLoading : moviesLoading;
+    const isError = hasSearchQuery ? searchError : moviesError;
 
     if (isError)
         return <p className="text-red-400">Ошибка при загрузке фильмов</p>;
@@ -33,17 +42,25 @@ export default function MovieGrid() {
         );
     }
 
-    if (!movies.length)
-        return <p className="text-gray-300">Нет фильмов по выбранным фильтрам</p>;
+    if (!movies.length) {
+        return (
+            <p className="text-gray-300">
+                {hasSearchQuery 
+                    ? `Не найдено фильмов по запросу "${query}"`
+                    : "Нет фильмов по выбранным фильтрам"
+                }
+            </p>
+        );
+    }
 
     return (
         <motion.div
-            key={filters.page}
+            key={`${query}-${page}`} 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
-            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5"
+            className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5"
         >
             <AnimatePresence>
                 {movies.map((movie) => (
@@ -56,16 +73,25 @@ export default function MovieGrid() {
                         className="bg-gray-900 p-3 rounded-xl border border-gray-700 hover:scale-[1.02] transition-transform"
                     >
                         <img
-                            src={movie.poster?.url || "/no-poster.jpg"}
-                            alt={movie.name}
+                            // @ts-ignore
+                            src={hasSearchQuery 
+                                ? (movie.poster || "/images/no-poster.jpg")
+                                : (movie.poster?.url || "/images/no-poster.jpg")
+                            }
+                            alt={movie.name || 'poster'}
                             className="rounded-lg w-full h-64 object-cover"
                         />
                         <h3 className="mt-3 font-medium text-white">
                             {movie.name}
                         </h3>
-                        <p className="text-sm text-gray-400">
-                            {movie.year} • IMDb: {movie.rating?.imdb ?? "—"}
-                        </p>
+                        {!hasSearchQuery ? (
+                            <p className="text-sm text-gray-400">
+                                {movie.year} • IMDb: {movie.rating?.imdb ?? "—"}
+                            </p>
+                        ) : (
+                            // @ts-ignore
+                            <p className="text-sm text-gray-400"> {movie.year} • Кинопоиск: {movie.rating ?? "—"}</p>
+                        )}
                     </motion.div>
                 ))}
             </AnimatePresence>

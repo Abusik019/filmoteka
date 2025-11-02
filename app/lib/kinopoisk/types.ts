@@ -19,4 +19,3 @@ export interface IMovieFilters {
     year?: string;
     rating?: string;
 }
-
