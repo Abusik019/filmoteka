@@ -19,7 +19,7 @@ export default function PaginationBar() {
         if (pageFromUrl !== currentPage) {
             setCurrentPage(pageFromUrl);
         }
-    }, [searchParams]);
+    }, [searchParams, currentPage]);
 
     const handleChangePage = (page: number): void => {
         const params = new URLSearchParams(searchParams.toString());

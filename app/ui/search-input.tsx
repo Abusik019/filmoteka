@@ -5,9 +5,10 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { ChangeEvent, FormEvent, useState } from 'react';
 
 export default function SearchInput() {
-    const [query, setQuery] = useState<string>('');
-    const searchParams = useSearchParams();
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const initialQuery = searchParams.get("query") || ""
+    const [query, setQuery] = useState<string>(initialQuery);
 
     const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         setQuery(e.target.value);

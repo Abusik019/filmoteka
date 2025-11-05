@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import '@ant-design/v5-patch-for-react-19';
+import 'react-lite-youtube-embed/dist/LiteYouTubeEmbed.css';
 
 const geistSans = Geist({
     variable: "--font-geist-sans",

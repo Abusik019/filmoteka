@@ -29,12 +29,12 @@ export default function ResetFiltersButton({ onClose }: ResetFiltersButtonProps)
 
         if (onClose) onClose();
 
-    }, [router, searchParams, pathname]);
+    }, [router, searchParams, pathname, onClose]);
 
     return (
         <button 
             onClick={handleReset}
-            className="text-white bg-black w-full py-2 box-border text-center font-medium rounded-lg cursor-pointer"
+            className="text-white bg-[#111828] border border-gray-700 w-full py-2 box-border text-center font-medium rounded-lg cursor-pointer"
         >
             Сброс фильтров
         </button>

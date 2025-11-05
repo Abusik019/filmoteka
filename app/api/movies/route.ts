@@ -58,8 +58,6 @@ export async function GET(request: Request) {
             query["rating.imdb"] = ratingImdb; 
         }
 
-        // console.log("KP query:", JSON.stringify(query, null, 2));
-
         const data = await kp.movie.getByFilters(query);
         return NextResponse.json(data);
     } catch (error) {
