@@ -8,21 +8,19 @@ Filmoteka is a web application built with Next.js that allows users to search an
 *   **Filtering:** Movies can be filtered based on genre, country, year, and IMDb rating.  Filters are persisted using `sessionStorage` to keep selections active during navigation.
 *   **Pagination:**  The movie grid implements pagination to handle large result sets.
 *   **Movie Details:**  Clicking on a movie card navigates to a dedicated page with detailed information, including the trailer (if available), description, genres, and ratings from IMDb and Kinopoisk.
-*   **Responsive Design:** The application is designed to be responsive and work well on different screen sizes.
 *   **Error Handling:**  Graceful error handling and "Not Found" pages are implemented for movie details.
 *   **Client-Side Data Fetching:** Uses `react-query` for efficient data fetching and caching.
 
 ## Technology Stack
 
 *   **Next.js:**  A React framework for building performant web applications.
-*   **React:** A JavaScript library for building user interfaces.
 *   **TypeScript:** A superset of JavaScript that adds static typing.
 *   **Kinopoisk API:**  Used to fetch movie data (`@openmoviedb/kinopoiskdev_client`).
+*   **Tailwind CSS:**  Used to styled UI.
 *   **react-query:**  For data fetching, caching, and state management.
 *   **Ant Design (Antd):**  A UI library for React (used for `DatePicker`, `Checkbox`, and `Rate` components). `@ant-design/v5-patch-for-react-19` is used for compatibility.
 *   **framer-motion:** For animations.
 *   **react-lite-youtube-embed:** For embedding YouTube trailers.
-*   **dayjs:** For date manipulation with `DatePicker`.
 
 ## Prerequisites
 
@@ -31,7 +29,7 @@ Before running the application, ensure you have the following installed:
 *   **Node.js:** (version 18 or higher)
 *   **npm** or **yarn:** Package managers for JavaScript.
 
-You will also need a Kinopoisk API key. Obtain one from [https://openmoviedb.com/](https://openmoviedb.com/) and set it as an environment variable.
+You will also need a Kinopoisk API key. Get it in the Telegram bot at this link [kinopoiskdev_bot](https://t.me/kinopoiskdev_bot)
 
 ## Installation Instructions
 
