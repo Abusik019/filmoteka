@@ -12,7 +12,7 @@ export default function Page() {
             <aside className='w-70 flex flex-col items-start gap-20'>
                 <Link href="/">
                     <Image
-                        src="/images/logo.png"
+                        src="/icon.png"
                         width={90}
                         height={90}
                         alt="logo"

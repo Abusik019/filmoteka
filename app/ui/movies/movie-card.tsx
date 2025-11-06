@@ -38,6 +38,8 @@ export default function MovieCard({ movie, hasSearchQuery }: MovieCardProps) {
             <Link href={`/movies/${movie.id}`} className="w-full h-full">
                 <Image
                     src={String(posterSrc)}
+                    width={189}
+                    height={256}
                     alt={movie.name || "poster"}
                     className="rounded-lg w-full h-64 object-cover"
                 />

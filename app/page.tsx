@@ -16,7 +16,7 @@ export default function Home() {
         <div className="max-h-fit bg-[#1f2833] px-20 py-10 box-border overflow-hidden min-h-screen text-white">
             <nav className="flex items-center justify-between">
                 <Image
-                    src="/images/logo.png"
+                    src="/icon.png"
                     width={90}
                     height={90}
                     alt="logo"

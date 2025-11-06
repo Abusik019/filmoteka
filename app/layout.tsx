@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-    title: "Filmoteka",
+  title: { default: "Filmoteka", template: "%s | Filmoteka" },
 };
 
 export default function RootLayout({
@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en">
+            <head>
+                <title>Filmoteka</title>
+            </head>
             <body className={`${geistSans.variable} ${geistMono.variable} antialiased text-white`} cz-shortcut-listen="true">
                 <Providers>{children}</Providers>
             </body>
